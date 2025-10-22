@@ -162,15 +162,22 @@ body {
     top: 100%;
     left: 0;
     background-color: var(--white);
-    min-width: 220px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    min-width: 250px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     border-radius: 8px;
-    padding: 10px 0;
+    padding: 15px 0;
     z-index: 1000;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
 .dropdown-content a {
@@ -458,11 +465,17 @@ body {
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
 }
 
 .btn-book-appointment:hover {
     background-color: #002550;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 58, 112, 0.3);
 }
 
 .quick-links {
@@ -657,12 +670,14 @@ body {
     border-radius: 6px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
     z-index: 1;
 }
 
 .find-doctor-btn:hover {
     background-color: #006b8a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 130, 168, 0.3);
 }
 
 .doctor-card img {
@@ -748,11 +763,17 @@ body {
     text-decoration: none;
     font-weight: 600;
     margin-top: 25px;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .btn-read-more:hover {
     background-color: #006b8a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 130, 168, 0.3);
+}
+
+.btn-read-more:hover .arrow-icon {
+    transform: translateX(5px);
 }
 
 .arrow-icon {
@@ -764,6 +785,7 @@ body {
     background-color: var(--arrow-color);
     border-radius: 50%;
     font-size: 18px;
+    transition: transform 0.3s ease;
 }
 
 /* Hospital Network Section */
@@ -868,6 +890,10 @@ body {
     background-color: #2a9593;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(53, 182, 180, 0.4);
+}
+
+.btn-find-hospital:hover .arrow-icon {
+    transform: translateX(5px);
 }
 
 .hospital-slider-wrapper {
@@ -1341,6 +1367,10 @@ body {
     box-shadow: 0 4px 12px rgba(53, 182, 180, 0.4);
 }
 
+.btn-view-all:hover .arrow-icon {
+    transform: translateX(5px);
+}
+
 .updates-right {
     flex: 1;
     display: flex;
@@ -1784,7 +1814,8 @@ body {
     }
 
     .btn-international {
-        display: none;
+        padding: 10px 16px;
+        font-size: 14px;
     }
 
     .hero-title {
@@ -1840,13 +1871,66 @@ body {
 }
 
 @media (max-width: 768px) {
-    .top-header-right {
-        flex-direction: column;
+    .top-header {
+        display: none;
+    }
+
+    .main-header {
+        position: sticky;
+        top: 0;
+    }
+
+    .header-content {
+        padding: 12px 15px;
+    }
+
+    .logo-section .logo {
+        height: 32px;
+    }
+
+    .header-actions {
+        gap: 8px;
+    }
+
+    .search-btn {
+        padding: 6px;
+    }
+
+    .btn-international {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .app-banner {
+        padding: 8px 10px;
+    }
+
+    .app-banner-content {
         gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .app-text {
+        font-size: 14px;
+    }
+
+    .scan-text,
+    .qr-code,
+    .app-store-btn:last-child {
+        display: none;
+    }
+
+    .hero-section {
+        padding: 30px 15px 40px;
     }
 
     .hero-title {
-        font-size: 26px;
+        font-size: 22px;
+        margin-bottom: 25px;
+    }
+
+    .appointment-form {
+        padding: 20px;
     }
 
     .section-title {
@@ -2058,6 +2142,87 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+}
+
+/* Welcome Modal */
+.welcome-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.welcome-modal.active {
+    display: flex;
+}
+
+.welcome-modal-content {
+    background-color: var(--white);
+    padding: 50px 60px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 500px;
+    animation: slideInUp 0.4s ease;
+}
+
+.welcome-modal-content h2 {
+    color: var(--secondary-color);
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.welcome-modal-content p {
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.welcome-modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-no-thanks,
+.btn-subscribe {
+    padding: 14px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-no-thanks {
+    background-color: #e0e0e0;
+    color: var(--text-dark);
+}
+
+.btn-no-thanks:hover {
+    background-color: #d0d0d0;
+    transform: translateY(-2px);
+}
+
+.btn-subscribe {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+.btn-subscribe:hover {
+    background-color: #002550;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 58, 112, 0.3);
 }
 
 /* Print Styles */

@@ -332,6 +332,43 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
     });
 });
 
+// Welcome Modal
+const welcomeModal = document.getElementById('welcomeModal');
+const btnNoThanks = document.getElementById('btnNoThanks');
+const btnSubscribe = document.getElementById('btnSubscribe');
+
+window.addEventListener('load', () => {
+    const hasSeenModal = sessionStorage.getItem('welcomeModalSeen');
+
+    if (!hasSeenModal) {
+        setTimeout(() => {
+            welcomeModal.classList.add('active');
+        }, 500);
+    }
+});
+
+if (btnNoThanks) {
+    btnNoThanks.addEventListener('click', () => {
+        welcomeModal.classList.remove('active');
+        sessionStorage.setItem('welcomeModalSeen', 'true');
+    });
+}
+
+if (btnSubscribe) {
+    btnSubscribe.addEventListener('click', () => {
+        welcomeModal.classList.remove('active');
+        sessionStorage.setItem('welcomeModalSeen', 'true');
+        alert('Thank you for subscribing! You will receive regular healthcare updates.');
+    });
+}
+
+welcomeModal.addEventListener('click', (e) => {
+    if (e.target === welcomeModal) {
+        welcomeModal.classList.remove('active');
+        sessionStorage.setItem('welcomeModalSeen', 'true');
+    }
+});
+
 // Console Log for Development
 console.log('Max Healthcare Website - JavaScript Loaded Successfully');
 console.log('All interactive elements initialized');
